@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <title>Rick And Morty</title>
+</head>
+<body >
+    
+
+    <h1 class="animate-charcter">Rick and Morty</h1>
+    <button class="button-49" id="btn" onclick="traerDatos('https:rickandmortyapi.com/api/character')">Click me!</button>
+    <div id="feed">
+
+    </div>
+   
+    
+    <script>
+   
+      function traerDatos(enlace){
+        $.ajax({
+        url: enlace,
+        contentType: "application/json",
+        dataType: 'json',
+        success: function(result){
+            result.results.forEach(element => {
+                $("#feed").append("<div id='ITEM'>"+element.name + "<br>" + "<img src="+ element.image+"> <br>"+ "</div>")
+            });
+            if (result.info.next){
+                traerDatos(result.info.next)
+        }
+        }
+    })
+      }
+    </script>
+    
+<script src="./index.js"></script>
+</body>
+
+</html>
